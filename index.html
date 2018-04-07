@@ -11,90 +11,97 @@
 		<link href= "css/bootstrap.min.css" rel="stylesheet">
 		<!-- Material Design Bootstrap -->
 		<link href="css/mdb.min.css" rel="stylesheet">
-		<!-- Your custom styles (optional) -->
+		<!--custom styles-->
 		<link href="css/style.css" rel="stylesheet">
 		
 	</head>
 	<body  ng-controller="MyCtrl">
-		<div class="container form-theme">
-			<div class="card">
-				<!-- Card body -->
-				<div class="card-body">
-					<!-- Material form contact -->
-					<form ng-submit="save()" name="formName">
-						<p class="h4 text-center mb-4">Register With Us</p>
+		<div class="form-theme">
+			<div class="row">
+				<div class="col-sm">
+					<div class="card">
+						<!-- Card body -->
+						<div class="card-body">
+							<!-- Material form contact -->
+							<form ng-submit="save()" name="formName">
+								<p class="h4 text-center mb-4">Register With Us</p>
+								
+								<div class="md-form">
+									<i class="fa fa-id-badge prefix grey-text"></i>
+									<input type="text" id="materialFormCardSnoEx" required name="sno" class="form-control" pattern="\d{1,3}" ng-model="farmer.SNO">
+									<label for="materialFormCardSnoEx" class="font-weight-light">S.No</label>
+								</div>
+								<div class="md-form">
+									<i class="fa fa-user prefix grey-text"></i>
+									<input type="text" id="materialFormCardNameEx" required name="name" class="form-control" pattern="[a-z A-Z]+" ng-model="farmer.NAME">
+									<label for="materialFormCardNameEx" class="font-weight-light">Farmer Name</label>
+								</div>
+								<div class="md-form">
+									<i class="fa fa-calendar prefix grey-text"></i>
+									<input type="number" id="materialFormCardAgeEx" required name="age" class="form-control" min="1" max="99" ng-model="farmer.AGE">
+									<label for="materialFormCardAgeEx" class="font-weight-light">Farmer Age</label>
+								</div>
+								<center>
+								<div class="md-form">
+									<!-- Basic dropdown -->
+									
+									<select class="btn btn-outline-secondary waves-effect dropdown-toggle" ng-model="farmer.selectedMandal" ng-options="item for item in mandals" required>
+										<option value="" ng-if="!farmer.selectedMandal">-- choose mandal --</option>
+									</select>
+									<select class="btn btn-outline-secondary waves-effect dropdown-toggle" ng-model="farmer.selectedVillage" ng-options="item for item in villages[farmer.selectedMandal]" required>
+										<option value="" ng-if="!farmer.selectedVillage" >-- choose village --</option>
+									</select>
+								</div>
+								</center>
+								<div class="text-center mt-4">
+									<button class="btn btn-outline-secondary" type="submit">Submit<i class="fa fa-paper-plane-o ml-2"></i></button>
+								</div>
+							</form>
+							<!-- Material form contact -->
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-sm">
+					<table class="table table-hover table-sm"  ng-show="users.length>0"  ng-init="showUsers()">
+						<!--Table head-->
+						<thead class="blue-grey lighten-2">
+							<tr>
+								<th>Sno</th>
+								<th>Name</th>
+								<th>Age</th>
+								<th>Mandal</th>
+								<th>Village</th>
+							</tr>
+						</thead>
+						<!--Table head-->
+						<!--Table body-->
+						<!-- Display records -->
+						<tbody>
+							<tr ng-repeat="user in users track by $index">
+								<td class="bold"  ng-cloak>{{user.sno}}</td>
+								<td class="bold"  ng-cloak>{{user.name | uppercase}}</td>
+								<td class="bold"  ng-cloak>{{user.age}}</td>
+								<td class="bold"  ng-cloak>{{user.mandal}}</td>
+								<td class="bold"  ng-cloak>{{user.village}}</td>
+							</tr>
+						</tbody>
 						
-						<div class="md-form">
-							<i class="fa fa-id-badge prefix grey-text"></i>
-							<input type="text" id="materialFormCardSnoEx" required name="sno" class="form-control"  pattern="\d{1,3}" ng-model="farmer.SNO">
-							<label for="materialFormCardSnoEx" class="font-weight-light">S.No</label>
-						</div>
-						<div class="md-form">
-							<i class="fa fa-user prefix grey-text"></i>
-							<input type="text" id="materialFormCardNameEx" required name="name" class="form-control" pattern="[a-z A-Z]+" ng-model="farmer.NAME">
-							<label for="materialFormCardNameEx" class="font-weight-light">Farmer Name</label>
-						</div>
-						<div class="md-form">
-							<i class="fa fa-calendar prefix grey-text"></i>
-							<input type="number" id="materialFormCardAgeEx" required name="age" class="form-control" min="1" max="100" ng-model="farmer.AGE">
-							<label for="materialFormCardAgeEx" class="font-weight-light">Farmer Age</label>
-						</div>
-						<center>
-						<div class="md-form">
-							<!-- Basic dropdown -->
-							
-							<select class="btn btn-outline-secondary waves-effect dropdown-toggle" ng-model="farmer.selectedMandal" ng-options="item for item in mandals" required>
-								<option value="" ng-if="!farmer.selectedMandal">-- choose mandal --</option>
-							</select>
-							<select class="btn btn-outline-secondary waves-effect dropdown-toggle" ng-model="farmer.selectedVillage" ng-options="item for item in villages[farmer.selectedMandal]" required>
-								<option value="" ng-if="!farmer.selectedVillage" >-- choose village --</option>
-							</select>
-						</div>
-						</center>
-						<div class="text-center mt-4">
-							<button class="btn btn-outline-secondary" type="submit" >Submit<i class="fa fa-paper-plane-o ml-2"></i></button>
-						</div>
-					</form>
-					<!-- Material form contact -->
+					</table>
 				</div>
 			</div>
-			<table class="table table-hover table-sm"  ng-show="users.length>0"  ng-init="showUsers()">
-				<!--Table head-->
-				<thead class="blue-grey lighten-2">
-					<tr>
-						<th>Sno</th>
-						<th>Name</th>
-						<th>Age</th>
-						<th>Mandal</th>
-						<th>Village</th>
-					</tr>
-				</thead>
-				<!--Table head-->
-				<!--Table body-->
-				<!-- Display records -->
-				<tbody ng-cloak>
-					<tr ng-repeat="user in users track by $index">
-						<td class="bold">{{user.sno}}</td>
-						<td class="bold">{{user.name | uppercase}}</td>
-						<td class="bold">{{user.age}}</td>
-						<td class="bold">{{user.mandal}}</td>
-						<td class="bold">{{user.village}}</td>
-					</tr>
-					
-				</table>
-			</div>
-			<!-- SCRIPTS -->
-			
-			<!-- JQuery -->
-			<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-			<!-- Bootstrap tooltips -->
-			<script type="text/javascript" src="js/popper.min.js"></script>
-			<!-- Bootstrap core JavaScript -->
-			<script type="text/javascript" src="js/bootstrap.min.js"></script>
-			<!-- MDB core JavaScript -->
-			<script type="text/javascript" src="js/mdb.min.js"></script>
-			<script type="text/javascript" src="js/angular.min.js"></script>
-			<script type="text/javascript" src="js/angular.route.min.js"></script>
-			<script type="text/javascript" src="js/main.js"></script>
-		</body>
-	</html>
+		</div>
+		<!-- SCRIPTS -->
+		
+		<!-- JQuery -->
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<!-- Bootstrap tooltips -->
+		<script type="text/javascript" src="js/popper.min.js"></script>
+		<!-- Bootstrap core JavaScript -->
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<!-- MDB core JavaScript -->
+		<script type="text/javascript" src="js/mdb.min.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>
